@@ -1,15 +1,15 @@
 import Image from "next/image";
 import searchIcon from "../../public/search.svg";
-import { KeyboardEvent } from "react";
+import { ChangeEvent, KeyboardEvent } from "react";
 
 type Props = {
   value: string
   placeholder: string
-  // handleInputChange: (event: ChangeEvent<HTMLInputElement>) => void
+  handleInputChange: (event: ChangeEvent<HTMLInputElement>) => void
   handleInputKeyDown: (event: KeyboardEvent<HTMLInputElement>) => void
 };
 
-const Search = ({value, placeholder, handleInputKeyDown}: Props) => {
+const Search = ({value, placeholder, handleInputChange, handleInputKeyDown}: Props) => {
   return (
     // <div className="rounded-md outline-1 outline outline-neutral-400 flex items-center px-3">
     //   <label htmlFor="search">
@@ -20,9 +20,9 @@ const Search = ({value, placeholder, handleInputKeyDown}: Props) => {
         id="search"
         type="text"
         placeholder={placeholder}
-        defaultValue={value}
-        // readOnly
-        // onChange={handleInputChange}
+        value={value}
+        autoComplete="off"
+        onChange={handleInputChange}
         onKeyDown={handleInputKeyDown}
         className="input input-bordered rounded-md w-full text-inherit focus:outline-none"
       />

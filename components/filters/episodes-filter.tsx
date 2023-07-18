@@ -1,19 +1,26 @@
-import { RootState } from "@/store/store"
-import Search from "./search"
-import { useDispatch, useSelector } from "react-redux"
-import { ChangeEvent, KeyboardEvent } from "react"
-import { setEpisodeQuery } from "@/store/slice/filter-slice"
+import { RootState } from "@/store/store";
+import Search from "./search";
+import { useDispatch, useSelector } from "react-redux";
+import { ChangeEvent, KeyboardEvent, useState } from "react";
+import {
+  resetEpisodeFilter,
+  setEpisodeQuery,
+} from "@/store/slice/filter-slice";
+import BadgeFilter from "../badge-filter";
+import ButtonReset from "../buttons/button-reset";
 
-type Props = {}
+type Props = {};
 
 const EpisodesFilter = (props: Props) => {
-  const {episodeQuery} = useSelector((state: RootState) => state.filter)
-  const dispatch = useDispatch()
+  const { episodeQuery } = useSelector((state: RootState) => state.filter);
+  const [inputValue, setInputValue] = useState<string>("");
 
-  const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
-    const searchValue = event.target.value
-    dispatch(setEpisodeQuery(searchValue))
-  }
+  const dispatch = useDispatch();
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const searchValue = event.target.value;
+    setInputValue(searchValue);
+  };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
@@ -22,26 +29,26 @@ const EpisodesFilter = (props: Props) => {
     }
   };
 
-  console.log(episodeQuery)
-  
+  const handleReset = () => {
+    dispatch(resetEpisodeFilter());
+  };
+
   return (
-    <div>
-      <input
-        type="text"
-        defaultValue={episodeQuery}
-        onKeyDown={handleKeyDown} // Tambahkan atribut onKeyDown untuk menangani peristiwa tombol ditekan
+    <div className="w-1/2 mx-auto mb-10">
+      <Search
+        value={inputValue}
+        placeholder="Filter by name or episode (ex. S01 or S01E02)"
+        handleInputChange={handleChange}
+        handleInputKeyDown={handleKeyDown}
       />
+
+      <div className="flex items-center gap-x-5">
+        {episodeQuery.length > 0 && <BadgeFilter label={episodeQuery} />}
+
+        {episodeQuery.length > 0 && <ButtonReset handleReset={handleReset} />}
+      </div>
     </div>
   );
-  
+};
 
-
-
-  // return (
-  //   <div className="w-3/5">
-  //       <Search value={episodeQuery} placeholder="Filter by name or episode (ex. S01 or S01E02)" handleInputChange={handleSearch} handleInputKeyDown={handleKeyDown} />
-  //   </div>
-  // )
-}
-
-export default EpisodesFilter
+export default EpisodesFilter;
