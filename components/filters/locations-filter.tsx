@@ -75,7 +75,7 @@ const LocationsFilter = (props: Props) => {
   };
 
   return (
-    <div className="mb-10">
+    <div className="mb-10 w-3/4 mx-auto">
       <div className="grid grid-cols-3 gap-x-5 mb-6">
         <div>
           <Search
@@ -99,9 +99,9 @@ const LocationsFilter = (props: Props) => {
         />
       </div>
 
-      <div className="flex">
-        <div className="flex">
-          {locationQuery.length > 0 && <BadgeFilter label={locationQuery} />}
+      <div className="flex items-center gap-x-5">
+        <div className="flex gap-x-3">
+          {locationQuery.length > 0 && <BadgeFilter label={`"${locationQuery}"`} />}
           {type.length > 0 && <BadgeFilter label={type} />}
           {dimension.length > 0 && <BadgeFilter label={dimension} />}
         </div>

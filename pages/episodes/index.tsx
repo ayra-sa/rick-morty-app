@@ -3,7 +3,7 @@ import Container from "@/components/layouts/page-container";
 import PageLayout from "@/components/layouts/page-layout";
 import client from "@/graphql/client";
 import GET_EPISODES from "@/graphql/queries/get-episodes";
-import { Episode, EpisodesResponse } from "@/interfaces/episodes-interface";
+import { EpisodeInterface, EpisodesResponse } from "@/interfaces/episodes-interface";
 import { HeadContext } from "@/interfaces/head-interface";
 import { GetServerSideProps } from "next";
 import episodesImg from "../../public/episodes-hero.png";
@@ -18,11 +18,11 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 
 type Props = {
-  initialEpisodes: Episode[];
+  initialEpisodes: EpisodeInterface[];
 };
 
 const Episodes = ({ initialEpisodes }: Props) => {
-  const [episodes, setEpisodes] = useState<Episode[]>(initialEpisodes);
+  const [episodes, setEpisodes] = useState<EpisodeInterface[]>(initialEpisodes);
   const [page, setPage] = useState<number>(1)
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -36,7 +36,7 @@ const Episodes = ({ initialEpisodes }: Props) => {
   );
 
   const filteredEpisodes = episodes.filter((episode) => (
-    episodeQuery === "" || episode.name.toLowerCase().includes(episodeQuery.toLowerCase())
+    episodeQuery === "" || episode.name.toLowerCase().includes(episodeQuery.toLowerCase()) || episode.episode.toLowerCase().includes(episodeQuery.toLowerCase())
   ))
 
 

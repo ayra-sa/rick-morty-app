@@ -34,7 +34,6 @@ const handleMore = async (
     });
 
     const moreData = data[dataProp]?.results;
-    console.log(Array.isArray(moreData))
     if (Array.isArray(moreData)) {
       setData((prevData) => [...prevData, ...moreData]);
       setPage((prevPage) => prevPage + 1);

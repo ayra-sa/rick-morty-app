@@ -12,7 +12,7 @@ const EpisodeCard = ({episodeName, episode, id, episodeAirDate}: Props) => {
     const router = useRouter()
 
     const onClick = useCallback(() => {
-        router.push(`/locations/${id}`)
+        router.push(`/episodes/${id}`)
     }, [id, router])
 
   return (

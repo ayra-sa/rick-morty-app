@@ -16,7 +16,6 @@ type Props = {
 };
 
 const Location = ({ locationDetail }: Props) => {
-  console.log(locationDetail.residents)
   const { id, name, type, dimension, residents } = locationDetail;
 
 
