@@ -87,7 +87,7 @@ const CharactersFilter = (props: Props) => {
 
   return (
     <div className="mb-10">
-      <div className="grid grid-cols-4 gap-5 mb-6">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-5 mb-6">
         <Search
           value={inputValue}
           placeholder="Filter by Name..."

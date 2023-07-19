@@ -34,7 +34,7 @@ const EpisodesFilter = (props: Props) => {
   };
 
   return (
-    <div className="w-1/2 mx-auto mb-10">
+    <div className="w-full md:w-1/2 mx-auto mb-10">
       <Search
         value={inputValue}
         placeholder="Filter by name or episode (ex. S01 or S01E02)"

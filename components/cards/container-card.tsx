@@ -6,7 +6,7 @@ type Props = {
 
 const ContainerCard = ({children}: Props) => {
   return (
-    <div className="grid grid-cols-4 gap-5">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
         {children}
     </div>
   )

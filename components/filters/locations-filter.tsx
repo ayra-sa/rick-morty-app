@@ -76,7 +76,7 @@ const LocationsFilter = (props: Props) => {
 
   return (
     <div className="mb-10 w-3/4 mx-auto">
-      <div className="grid grid-cols-3 gap-x-5 mb-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
         <div>
           <Search
             value={inputValue}

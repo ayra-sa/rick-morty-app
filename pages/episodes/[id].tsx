@@ -25,13 +25,13 @@ const Episode = ({ episodeDetail }: Props) => {
   return (
     <PageLayout headContext={headContext}>
       <Container>
-        <div className="pt-20">
+        <div className="pt-20 mb-5">
           <ButtonBack />
         </div>
 
         <div className="flex flex-col items-center mb-10">
-          <h1 className="text-5xl mb-5">{name}</h1>
-          <div className="flex gap-x-5 w-1/2 justify-center">
+          <h1 className="text-4xl md:text-5xl text-center mb-5">{name}</h1>
+          <div className="flex gap-x-5 md:w-1/2 justify-center">
             <div>
               <b>Episode</b>
               <p>{episode}</p>
@@ -42,6 +42,8 @@ const Episode = ({ episodeDetail }: Props) => {
             </div>
           </div>
         </div>
+
+        <p className="text-sm md:text-base mb-5">The Characters in the episode &quot;{name}&quot;</p>
 
         <ContainerCard>
           {characters.map((character) => (

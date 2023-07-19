@@ -19,8 +19,9 @@ type Props = {
 
 const Character = ({characterDetail}: Props) => {
   const router = useRouter()
-  // console.log(router)
-  const {name, image, gender, species, status, origin, type, location, episode} = characterDetail
+  const {id, name, image, gender, species, status, origin, type, location, episode} = characterDetail
+
+  console.log(typeof(id))
 
   const headContext: HeadContext = {
     title: name,
@@ -42,19 +43,19 @@ const Character = ({characterDetail}: Props) => {
 
           <div className="flex flex-col md:flex-row gap-10 w-[80%] mt-7">
             <div className="flex-1">
-              <h3 className="text-lg mb-5">Informations</h3>
+              <h3 className="text-xl mb-5">Informations :</h3>
               <BlockInformation label='Gender' value={gender} />
               <BlockInformation label='Status' value={status} />
               <BlockInformation label='Species' value={species} />
               <BlockInformation label='Origin' value={origin.name} />
               <BlockInformation label='Type' value={type.length === 0 ? "-" : type} />
-              <BlockInformation label='Location' value={location.name} />
+              <BlockInformation label='Location' value={location.name} id={location.id} />
             </div>
             <div className="flex-1">
-              <h3 className="text-lg mb-5">Episodes</h3>
+              <h3 className="text-xl mb-5">Episodes :</h3>
 
               {episode.map((eps) => (
-                <BlockEpisode key={eps.id} airDate={eps.air_date} episode={eps.episode} episodeName={eps.name} />
+                <BlockEpisode key={eps.id} id={eps.id} airDate={eps.air_date} episode={eps.episode} episodeName={eps.name} />
               ))}
             </div>
           </div>

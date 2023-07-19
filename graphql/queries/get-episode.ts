@@ -12,6 +12,7 @@ const GET_EPISODE = gql`
                 name
                 status
                 species
+                image
             }
         }
     }

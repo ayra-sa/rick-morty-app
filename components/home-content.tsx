@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import rickMorty from "../public/home-image.png";
+import Link from "next/link";
 
 type Props = {};
 
@@ -10,10 +11,17 @@ const HomeContent = (props: Props) => {
       <Image src={rickMorty} alt="rick and morty" width={230} height={230} />
 
       <div className="my-4 text-center w-2/5 mx-auto">
-        <p>Hello Everyone!</p>
-        <p>Are you a fans of Rick and Morty tv series? if yes, this place is fit for you to explore about Rick and Morty, or if you is new, it&apos;s ok, you still can enjoy this 🤗</p>
+        <p>Hi Everyone!</p>
+        <p>
+          Are you a fan of Rick and Morty&apos;s TV series? if yes, then this is
+          the right place for you to explore about Rick and Morty&apos;s tv
+          series, but if you just found out about this, it&apos;s okay, you can
+          definitely still enjoy it 🤗
+        </p>
       </div>
-      <button className="btn">Let&apos;s Go</button>
+      <Link href="/characters">
+        <button className="btn">Let&apos;s Go</button>
+      </Link>
     </div>
   );
 };

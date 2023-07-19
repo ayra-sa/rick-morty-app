@@ -1,20 +1,29 @@
 import Image from "next/image";
 import arrowIcon from "../../../public/chevron_right_24px.png";
+import { useRouter } from "next/router";
+import { useCallback } from "react";
 
 type Props = {
   episode: string;
   episodeName: string;
   airDate: string;
+  id: string
 };
 
-const BlockEpisode = ({ episode, episodeName, airDate }: Props) => {
+const BlockEpisode = ({ episode, episodeName, airDate, id }: Props) => {
+  const router = useRouter()
+
+  const handleClick = useCallback(() => {
+    router.push(`/episodes/${id}`)
+  }, [router, id])
+
   return (
-    <div>
+    <div className="cursor-pointer" onClick={handleClick}>
       <div className="flex items-center">
         <div className="w-11/12">
           <p className="font-semibold">{episode}</p>
           <p>{episodeName}</p>
-          <p>{airDate}</p>
+          <p className="tracking-widest uppercase">{airDate}</p>
         </div>
 
         <Image
