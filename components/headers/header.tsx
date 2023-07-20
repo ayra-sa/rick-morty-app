@@ -26,7 +26,7 @@ const Header = ({}: Props) => {
               </Link>
               {/* <div className="flex-1 px-2 mx-2">Navbar Title</div> */}
               <div className="flex-none hidden lg:block">
-                <ul className="menu menu-horizontal">
+                <ul className="flex gap-x-10">
                   {menu.map((m) => (
                     <MenuList
                       key={m.menu}

@@ -5,10 +5,9 @@ import {
   CharactersResponse,
 } from "@/interfaces/characters-interface";
 import { GetServerSideProps } from "next";
-// import CharactersContent from "@/components/pages/characters-content";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PageLayout from "@/components/layouts/page-layout";
 import { HeadContext } from "@/interfaces/head-interface";
 import Container from "@/components/layouts/page-container";
@@ -20,7 +19,6 @@ import CharactersFilter from "@/components/filters/characters-filter";
 import CharacterCard from "@/components/cards/character-card";
 import LoadMore from "@/components/buttons/load-more";
 import handleMore from "@/lib/handle-load-more";
-import { resetCharacterFilter } from "@/store/slice/filter-slice";
 
 type Props = {
   initialCharacters: Character[];
@@ -30,6 +28,7 @@ const Characters = ({ initialCharacters }: Props) => {
   const [characters, setCharacters] = useState<Character[]>(initialCharacters);
   const [page, setPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [filteredCharacters, setFilteredCharacters] = useState<Character[]>([])
 
   const handleMoreCharacters = async () => {
     await handleMore(
@@ -46,14 +45,18 @@ const Characters = ({ initialCharacters }: Props) => {
     (state: RootState) => state.filter
   );
 
+  useEffect(() => {
+    const filtered = characters.filter(
+      (character) =>
+        (species === "" || character.species === species) &&
+        (gender === "" || character.gender === gender) &&
+        (status === "" || character.status === status) &&
+        (characterQuery === "" || character.name.toLowerCase().includes(characterQuery.toLowerCase()))
+    );
+    setFilteredCharacters(filtered)
+  }, [characters, species, gender, status, characterQuery])
 
-  const filteredCharacters = characters.filter(
-    (character) =>
-      (species === "" || character.species === species) &&
-      (gender === "" || character.gender === gender) &&
-      (status === "" || character.status === status) &&
-      (characterQuery === "" || character.name.toLowerCase().includes(characterQuery.toLowerCase()))
-  );
+
 
   const headContext: HeadContext = {
     title: "All Characters",

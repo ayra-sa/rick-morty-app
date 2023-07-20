@@ -7,7 +7,7 @@ import { EpisodeInterface, EpisodesResponse } from "@/interfaces/episodes-interf
 import { HeadContext } from "@/interfaces/head-interface";
 import { GetServerSideProps } from "next";
 import episodesImg from "../../public/episodes-hero.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ContainerCard from "@/components/cards/container-card";
 import EpisodeCard from "@/components/cards/episode-card";
 import Loading from "@/components/loading";
@@ -25,6 +25,7 @@ const Episodes = ({ initialEpisodes }: Props) => {
   const [episodes, setEpisodes] = useState<EpisodeInterface[]>(initialEpisodes);
   const [page, setPage] = useState<number>(1)
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [filteredEpisodes, setFilteredEpisodes] = useState<EpisodeInterface[]>([])
 
   const headContext: HeadContext = {
     title: "All Episodes",
@@ -35,9 +36,13 @@ const Episodes = ({ initialEpisodes }: Props) => {
     (state: RootState) => state.filter
   );
 
-  const filteredEpisodes = episodes.filter((episode) => (
-    episodeQuery === "" || episode.name.toLowerCase().includes(episodeQuery.toLowerCase()) || episode.episode.toLowerCase().includes(episodeQuery.toLowerCase())
-  ))
+  useEffect(() => {
+    const filtered = episodes.filter((episode) => (
+      episodeQuery === "" || episode.name.toLowerCase().includes(episodeQuery.toLowerCase()) || episode.episode.toLowerCase().includes(episodeQuery.toLowerCase())
+    ))
+    setFilteredEpisodes(filtered)
+  }, [episodes, episodeQuery])
+
 
 
   const handleMoreEpisodes = async () => {

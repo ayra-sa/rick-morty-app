@@ -12,7 +12,7 @@ import { GetServerSideProps } from "next";
 import locationsImg from "../../public/location-hero.png";
 import ContainerCard from "@/components/cards/container-card";
 import LocationCard from "@/components/cards/location-card";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loading from "@/components/loading";
 import LoadMore from "@/components/buttons/load-more";
 import handleMore from "@/lib/handle-load-more";
@@ -28,6 +28,7 @@ const Locations = ({ initialLocations }: Props) => {
   const [locations, setLocations] = useState<LocationInterface[]>(initialLocations);
   const [page, setPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [filteredLocations, setFilteredLocations] = useState<LocationInterface[]>([]);
 
   const headContext: HeadContext = {
     title: "All Locations",
@@ -49,12 +50,15 @@ const Locations = ({ initialLocations }: Props) => {
     (state: RootState) => state.filter
   );
 
-  const filteredLocations = locations.filter(
-    (location) =>
-      (locationQuery === "" || location.name.toLowerCase().includes(locationQuery.toLowerCase())) &&
-      (type === "" || location.type === type) &&
-      (dimension === "" || location.dimension === dimension)
-  );
+  useEffect(() => {
+    const filtered = locations.filter(
+      (location) =>
+        (locationQuery === "" || location.name.toLowerCase().includes(locationQuery.toLowerCase())) &&
+        (type === "" || location.type === type) &&
+        (dimension === "" || location.dimension === dimension)
+    );
+    setFilteredLocations(filtered)
+  }, [locations, locationQuery, type, dimension])
 
   return (
     <PageLayout headContext={headContext}>
